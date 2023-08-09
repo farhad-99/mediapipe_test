@@ -579,6 +579,17 @@ void AnnotationRenderer::DrawText(const RenderAnnotation& annotation) {
               color, thickness, /*lineType=*/8,
               /*bottomLeftOrigin=*/flip_text_vertically_);
 }
+void AnnotationRenderer::DrawText(std::string text, int top, int left)
+{
+  const cv::Point origin(left, top);
+  const int font_size = 35;
+  const int thickness = 5;
+  const cv::Scalar color = cv::Scalar(255.0, 0.0, 0.0);
+  const cv::HersheyFonts font_face = cv::FONT_HERSHEY_PLAIN;
+
+  const double font_scale = ComputeFontScale(font_face, font_size, thickness);
+  cv::putText(mat_image_, text, origin, font_face, font_scale, color, thickness);
+}
 
 double AnnotationRenderer::ComputeFontScale(int font_face, int font_size,
                                             int thickness) {
